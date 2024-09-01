@@ -304,6 +304,25 @@ BR.recipeBuilder()
         .EUt(Globals.voltAmps[2])
         .buildAndRegister()
 
+//diisobutylene production
+
+BR.recipeBuilder()
+        .fluidInputs(fluid('isobutylene')*1000)
+        .notConsumable(ore('dustAluminiumSilicate'))
+        .notConsumable(fluid('SulfuricAcid')*1000)
+        .fluidOutputs(fluid('diisobutyleneMixture')*1000)
+        .duration(200)
+        .EUt(Globals.voltAmps[2])
+        .buildAndRegister()
+
+DISTILLATION_TOWER.recipeBuilder()
+        .fluidInputs(fluid('diisobutyleneMixture')*1000)
+        .fluidOutputs(fluid('diisobutylene')*800)
+        .fluidOutputs(fluid('isobutylene'))
+        .duration(800)
+        .EUt(Globals.voltAmps[2])
+        .buildAndRegister()
+
 //source for trimethylpentylphosphinic acid WO2013083047A1
 BR.recipeBuilder()
         .notConsumable(metaitem('emitter.lv'))
