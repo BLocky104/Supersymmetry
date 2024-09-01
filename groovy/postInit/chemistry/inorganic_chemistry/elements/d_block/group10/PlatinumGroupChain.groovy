@@ -682,6 +682,16 @@ BR.recipeBuilder()
 //Output: H2(IrCl6) extract
 //Output: Solution Rh,Ru
 
+BCR.recipeBuilder()
+        .fluidInputs(fluid('chlorine') )
+        .fluidInputs(fluid('tributylphosphate') )
+        .fluidInputs(fluid('distilledWater'))
+        .fluidOutputs(fluid('rhodiumRutheniumSolution') )
+        .fluidOutputs(fluid('hexachloroiridiumAcid') )
+        .duration(20)
+        .EUt(Globals.voltAmps[2])
+        .buildAndRegister()
+
 //
 //
 //
@@ -692,6 +702,14 @@ BR.recipeBuilder()
 //Crystallization
 //Output: (NH4)3(RhCl6) crystals
 //Output: Solution, Ru
+
+CRYSTALLIZER.recipeBuilder
+        .fluidInputs(fluid('rhodiumRutheniumSolution') )
+        .output(metaitem.ammoniumHexachlororhodateCrystal) //IDK
+        .fluidOutputs(fluid(rutheniumSolution) )
+        .duration(200)
+        .EUt(Globals.voltAmps[2])
+        .buildAndRegister()
 
 //
 //
