@@ -20,6 +20,7 @@ SIFTER = recipemap('sifter')
 DRYER = recipemap('dryer')
 VACUUM_DT = recipemap('vacuum_distillation')
 BCR = recipemap('bubble_column_reactor')
+ION = recipemap('ion_exchange')
 
 // Platinum Dust * 1
 mods.gregtech.centrifuge.removeByInput(30, [metaitem('dustAlluvialPlatinum')], null)
@@ -636,6 +637,8 @@ CSTR.recipeBuilder()
 
 //PALLADIUM
 
+
+
 //Solvent extraction with DNHS
 //Stripping with NH3(aq)
 //Output: (Pd(NH3)4)Cl2 extract
@@ -705,8 +708,8 @@ BCR.recipeBuilder()
 
 CRYSTALLIZER.recipeBuilder
         .fluidInputs(fluid('rhodiumRutheniumSolution') )
-        .output(metaitem.ammoniumHexachlororhodateCrystal) //IDK
-        .fluidOutputs(fluid(rutheniumSolution) )
+        .output(ore('gemAmmoniumHexachlororhodate') )
+        .fluidOutputs(fluid('rutheniumSolution') )
         .duration(200)
         .EUt(Globals.voltAmps[2])
         .buildAndRegister()
@@ -721,6 +724,22 @@ CRYSTALLIZER.recipeBuilder
 //Removal of NH4+
 //Oxidative distillation
 //Output RuO4 distillate
+
+MIXER.recipeBuilder()
+        .fluidOutputs(fluid('oxygenRichRutheniumSolution'))
+        .fluidInputs(fluid('oxygen') )
+        .fluidInputs(fluid('rutheniumSolution'))
+        .duration(200)
+        .EUt(Globals.voltAmps[2])
+        .buildAndRegister()
+
+DISTILLATION_TOWER.recipeBuilder()
+        .fluidInputs(fluid('oxygenRichRutheniumSolution'))
+        .fluidOutputs(fluid('rutheniumTetroxide'))
+        .fluidOutputs(fluid('ammonium'))
+        .duration(200)
+        .EUt(Globals.voltAmps[2])
+        .buildAndRegister()
 
 //
 //
@@ -737,30 +756,115 @@ CRYSTALLIZER.recipeBuilder
 //Output: AgCl precipitate
 //Output: Solution Pt,Pd,Rh,Ir,Au,Ru
 
+
+MIXER.recipeBuilder()
+        .fluidInputs(fluid('distilledWater'))
+        .fluidInputs(fluid('PGM_Solution'))
+        .fluidOutputs(fluid('diluted_PGM_Solution'))
+        .duration(200)
+        .EUt(Globals.voltAmps[2])
+        .buildAndRegister()
+
+DISTILLATION_TOWER.recipeBuilder()
+        .fluidInputs(fluid('diluted_PGM_Solution'))
+        .fluidInputs(fluid('silverChloride'))
+        .fluidOutputs(fluid('silver_Reduced_PGM_Solution'))
+        .duration(200)
+        .EUt(Globals.voltAmps[2])
+        .buildAndRegister()
+
 //Solvent Extraction with MIBK
+
+CENTRIFUGE.recipeBuilder()
+        .fluidInputs(fluid('silver_Reduced_PGM_solution'))
+        .fluidInputs(fluid('methyl_iso_butyl_ketone'))
+        .fluidOutputs(fluid('gold_precipitate'))
+        .fluidOutputs(fluid('gold_reduced_PGM_solution'))
+        .duration(200)
+        .EUt(Globals.voltAmps[2])
+        .buildAndRegister()
+
+DISTILLATION_TOWER.recipeBuilder()
+        .fluidInputs(fluid('gold_precipitate'))
+        .output(ore('dustGold'))
+        .fluidOutputs(fluid('methyl_iso_butyl_ketone'))
+        .duration(200)
+        .EUt(Globals.voltAmps[2])
+        .buildAndRegister()
 //Reduction
 //Output: Au precipitate
 //Output: Solution Pt,Pd,Rh,Ir,Ru
+
+CENTRIFUGE.recipeBuilder()
+        .fluidInputs(fluid('gold_reduced_PGM_solution'))
+        .fluidInputs(fluid('oxime'))
+        .fluidOutputs(fluid('PalladiumChlorideSolution'))
+        .fluidOutputs(fluid('palladium_stripped_PGM_solution'))
+        .duration(200)
+        .EUt(Globals.voltAmps[2])
+        .buildAndRegister()
 
 //Solvent Extraction with oxime
 //Stripping
 //Output: H2(PdCl4) Solution
 //Output: Solution Pt,Rh,Ir,Ru
 
+CENTRIFUGE.recipeBuilder()
+        .fluidInputs(fluid('palladium_stripped_PGM_solution'))
+        .fluidInputs(fluid('amine'))
+        .fluidOutputs(fluid('HexachloroplatinicAcid'))
+        .fluidOutputs(fluid('platinum_stripped_PGM_solution'))
+        .duration(200)
+        .EUt(Globals.voltAmps[2])
+        .buildAndRegister()
+
 //Solvent Extraction with amine
 //Stripping
 //Output: H2(PtCl6) Solution
 //Output: Solution Ir,Rh,RU
 
+MIXER.recipeBuilder()
+        .fluidInputs(fluid('Oxygen'))
+        .fluidInputs(fluid('platinum_stripped_PGM_solution'))
+        .fluidOutputs(fluid('oxygenized_platinum_stripped_PGM_solution'))
+        .duration(200)
+        .EUt(Globals.voltAmps[2])
+        .buildAndRegister()
+
+DISTILLATION_TOWER.recipeBuilder()
+        .fluidInputs(fluid('oxygenized_platinum_stripped_PGM_solution'))
+        .fluidOutputs(fluid('ruthenium_tetroxide'))
+        .fluidOutputs(fluid('rhodium_iridium_solution'))
+        .duration(200)
+        .EUt(Globals.voltAmps[2])
+        .buildAndRegister()
+
+
 //Removal of NH4+
 //Oxidative Distillation
 //Output: RuO4 distillate
-//Output: Solution Ru,Ir
+//Output: Solution Rh,Ir
+
+DISTILLATION_TOWER.recipeBuilder()
+        .fluidInputs(fluid('rhodium_iridium_solution'))
+        .fluidOutputs(fluid('rhodium_solution'))
+        .fluidOutptus(fluid('hexachloroiridic_acid'))
+        .fluidOutputs(fluid('amine'))
+        .duration(200)
+        .EUt(Globals.voltAmps[2])
+        .buildAndRegister()
 
 //Amine Extraction
 //Stripping
 //Output: H2(IrCl6) Solution
 //Output: Solution Rh
+
+ION.recipeBuilder()
+        .fluidInputs(fluid('rhodium_solution'))
+        .fluidOutputs(fluid('chlororhodicAcid'))
+        .duration(200)
+        .EUt(Globals.voltAmps[2])
+        .buildAndRegister()
 
 //Ion Exchange
 //Elution

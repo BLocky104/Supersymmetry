@@ -3382,5 +3382,18 @@ public class FirstDegreeMaterials {
                 .components(Rubidium, Oxygen, Hydrogen)
                 .color(0xbf54bb)
                 .build()
+
+        ChlororhodicAcid = new Material.Builder(13114, SuSyUtility.susyId("chlororhodic_acid"))
+                .liquid()
+                .components(Hydrogen * 3, Rhodium * 1, Chlorine * 6)
+                .colorAverage()
+                .build()
+
+        HexachloroiridicAcid = new Material.Builder(13115, SuSyUtility.susyId("hexachlororiridic_acid"))
+                .liquid()
+                .components(Hydrogen * 2, Iridium * 1, Chlorine * 6)
+                .colorAverage()
+                .build()
+
     }
 }

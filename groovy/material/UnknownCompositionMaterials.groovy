@@ -1937,5 +1937,16 @@ public class UnknownCompositionMaterials {
                 .dust()
                 .color(0x631a87)
                 .build()
+
+        RhodiumSolution = new Material.Builder(4424, SuSyUtility.susyId("rhodium_solution"))
+                .fluid()
+                .color(0x9199C9)
+                .build()
+
+        RhodiumIridiumSolution = new Material.Builder(4425, SuSyUtility.susyId("rhodium_iridium_solution"))
+                .fluid()
+                .color(0x9199C9)
+                .build()
+
     }
 }
